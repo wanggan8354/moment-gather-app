@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾刻 - 短片预览</title>
+    <style id="theme-vars">
+/* ========================================
+   拾刻 App Prototype — Brand Design Tokens
+   Warm Film / Nostalgic Tone
+   ======================================== */
+
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #D4845A;
+  --color-primary-light: #E8A87C;
+  --color-primary-dark: #B86A42;
+  --color-primary-bg: #FDF6F0;
+
+  /* ── Warm Neutrals ── */
+  --color-bg: #FFFAF5;
+  --color-bg-secondary: #FFF5EC;
+  --color-bg-tertiary: #F5EDE4;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+
+  /* ── Text ── */
+  --color-text-primary: #2D1F14;
+  --color-text-secondary: #6B5344;
+  --color-text-tertiary: #9C8577;
+  --color-text-inverse: #FFFFFF;
+
+  /* ── Borders & Dividers ── */
+  --color-border: #E8DDD2;
+  --color-border-light: #F0E8DF;
+
+  /* ── Accent / Film Tones ── */
+  --color-film-gold: #C9A96E;
+  --color-film-rose: #D4847A;
+  --color-film-sage: #8BA888;
+  --color-film-sky: #7BA7BC;
+
+  /* ── State Colors ── */
+  --state-success: #6BAF7B;
+  --state-warning: #D4A04A;
+  --state-error: #C96B5A;
+  --state-info: #6B8FC9;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows (static alpha ≤ 0.05) ── */
+  --shadow-sm: 0 1px 3px rgba(45, 31, 20, 0.04);
+  --shadow-md: 0 2px 8px rgba(45, 31, 20, 0.05);
+  --shadow-lg: 0 8px 24px rgba(45, 31, 20, 0.05);
+  --shadow-float: 0 12px 40px rgba(45, 31, 20, 0.08);
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Film Grain Overlay ── */
+  --grain-opacity: 0.03;
+}
+
+/* ── Typography Classes ── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-md {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-sm {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-surface); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+
+<body class="font-body text-text-primary antialiased">
+
+  <!-- Mobile Container -->
+  <div class="max-w-mobile mx-auto min-h-screen relative" style="background-color: var(--color-bg);">
+
+    <!-- ══════════════════════════════════════════
+         1. TOP NAV BAR
+         ══════════════════════════════════════════ -->
+    <nav class="flex items-center justify-between px-4 py-3 sticky top-0 z-30" style="background-color: var(--color-bg);">
+      <!-- Back Button -->
+      <button data-dom-id="preview-back" class="flex items-center gap-1 text-text-secondary hover:text-text-primary transition-colors" aria-label="返回">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span class="text-sm font-medium">返回</span>
+      </button>
+
+      <!-- Page Title -->
+      <h1 class="text-sm font-semibold tracking-wide" style="color: var(--color-text-primary);">短片预览</h1>
+
+      <!-- More Options -->
+      <button class="text-text-secondary hover:text-text-primary transition-colors" aria-label="更多选项">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+         2. VIDEO PLAYER AREA
+         ══════════════════════════════════════════ -->
+    <section class="relative film-grain video-vignette" style="background-color: #1a1008;">
+      <!-- Film Strip Borders -->
+      <div class="film-strip-left"></div>
+      <div class="film-strip-right"></div>
+
+      <!-- Video Frame (16:9) -->
+      <div class="relative" style="aspect-ratio: 16/9; margin: 0 28px;">
+        <!-- Video Thumbnail -->
+        <img
+          src="../assets/preview-video.jpg"
+          alt="三亚之旅短片预览"
+          class="w-full h-full object-cover"
+          style="filter: brightness(0.85) contrast(1.05) saturate(1.1);"
+        >
+
+        <!-- Play/Pause Button Overlay -->
+        <button class="absolute inset-0 flex items-center justify-center z-10" aria-label="播放/暂停">
+          <!-- Pulse Ring -->
+          <div class="absolute w-20 h-20 rounded-full bg-white/20 play-btn-ring"></div>
+          <!-- Button Circle -->
+          <div class="relative w-16 h-16 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--color-primary-dark)" stroke="none">
+              <polygon points="8,5 20,12 8,19"></polygon>
+            </svg>
+          </div>
+        </button>
+
+        <!-- Video Duration Badge -->
+        <div class="absolute top-3 right-3 z-10 px-2 py-1 rounded-md text-xs font-medium text-white" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);">
+          2:34
+        </div>
+      </div>
+
+      <!-- Timeline Scrubber -->
+      <div class="px-8 py-3" style="background: linear-gradient(to top, rgba(26,16,8,0.9), rgba(26,16,8,0.4));">
+        <input type="range" min="0" max="100" value="52" class="scrubber-track">
+        <div class="flex justify-between mt-1.5">
+          <span class="text-xs font-medium" style="color: rgba(255,255,255,0.7);">1:24</span>
+          <span class="text-xs font-medium" style="color: rgba(255,255,255,0.5);">2:34</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         3. VIDEO INFO SECTION
+         ══════════════════════════════════════════ -->
+    <section class="px-5 pt-5 pb-4">
+      <!-- Title -->
+      <h2 class="font-display text-2xl font-bold leading-tight tracking-tight" style="color: var(--color-text-primary);">
+        三亚之旅 · 2024
+      </h2>
+
+      <!-- Subtitle -->
+      <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-text-secondary);">
+        AI 从 847 张照片中精选 42 个瞬间
+      </p>
+
+      <!-- Date -->
+      <div class="flex items-center gap-1.5 mt-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span class="text-xs font-medium" style="color: var(--color-text-tertiary);">
+          2024年3月15日 — 3月22日
+        </span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         4. ACTION BUTTONS ROW
+         ══════════════════════════════════════════ -->
+    <section class="px-5 pb-5">
+      <div class="flex gap-3">
+        <!-- Share Button -->
+        <button
+          data-dom-id="preview-share"
+          class="action-btn flex-1 flex flex-col items-center gap-2 py-3.5 rounded-xl border"
+          style="border-color: var(--color-border); background-color: var(--color-surface);"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span class="text-xs font-semibold" style="color: var(--color-text-secondary);">分享</span>
+        </button>
+
+        <!-- Download Button -->
+        <button
+          data-dom-id="preview-download"
+          class="action-btn flex-1 flex flex-col items-center gap-2 py-3.5 rounded-xl border"
+          style="border-color: var(--color-border); background-color: var(--color-surface);"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span class="text-xs font-semibold" style="color: var(--color-text-secondary);">下载</span>
+        </button>
+
+        <!-- Edit Button -->
+        <button
+          data-dom-id="preview-edit"
+          class="action-btn flex-1 flex flex-col items-center gap-2 py-3.5 rounded-xl border"
+          style="border-color: var(--color-border); background-color: var(--color-surface);"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+          <span class="text-xs font-semibold" style="color: var(--color-text-secondary);">编辑</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="mx-5 h-px" style="background-color: var(--color-border-light);"></div>
+
+    <!-- ══════════════════════════════════════════
+         5. "分享到" SECTION
+         ══════════════════════════════════════════ -->
+    <section class="px-5 py-5">
+      <h3 class="text-sm font-semibold mb-4" style="color: var(--color-text-primary);">分享到</h3>
+
+      <div class="flex items-center justify-between">
+        <!-- WeChat -->
+        <button class="social-icon flex flex-col items-center gap-2" aria-label="分享到微信">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background-color: #07C160;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+              <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05a6.127 6.127 0 0 1-.253-1.726c0-3.574 3.263-6.48 7.287-6.48.253 0 .499.021.743.042C16.794 4.308 13.084 2.188 8.691 2.188zm-2.35 4.154a1.12 1.12 0 1 1 0 2.24 1.12 1.12 0 0 1 0-2.24zm4.7 0a1.12 1.12 0 1 1 0 2.24 1.12 1.12 0 0 1 0-2.24z"/>
+              <path d="M23.997 14.58c0-3.247-3.06-5.88-6.835-5.88-3.775 0-6.835 2.633-6.835 5.88s3.06 5.88 6.835 5.88c.795 0 1.56-.112 2.273-.312a.69.69 0 0 1 .572.078l1.52.89a.26.26 0 0 0 .133.043.236.236 0 0 0 .232-.236c0-.058-.023-.114-.038-.17l-.312-1.182a.472.472 0 0 1 .17-.532C22.997 18.194 23.997 16.49 23.997 14.58zm-9.143-1.12a.896.896 0 1 1 0-1.792.896.896 0 0 1 0 1.792zm4.616 0a.896.896 0 1 1 0-1.792.896.896 0 0 1 0 1.792z"/>
+            </svg>
+          </div>
+          <span class="text-xs" style="color: var(--color-text-tertiary);">微信</span>
+        </button>
+
+        <!-- WeChat Moments -->
+        <button class="social-icon flex flex-col items-center gap-2" aria-label="分享到朋友圈">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background-color: #07C160;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="1.5"/>
+              <circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="1.5"/>
+              <circle cx="12" cy="12" r="1.5"/>
+              <line x1="12" y1="2" x2="12" y2="5" stroke="white" stroke-width="1.5"/>
+              <line x1="12" y1="19" x2="12" y2="22" stroke="white" stroke-width="1.5"/>
+              <line x1="2" y1="12" x2="5" y2="12" stroke="white" stroke-width="1.5"/>
+              <line x1="19" y1="12" x2="22" y2="12" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="text-xs" style="color: var(--color-text-tertiary);">朋友圈</span>
+        </button>
+
+        <!-- Douyin -->
+        <button class="social-icon flex flex-col items-center gap-2" aria-label="分享到抖音">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M16.6 5.82C15.56 4.94 14.86 3.71 14.74 2.32c-.01-.14-.01-.28-.01-.42V1.5h-3.68v14.28c0 1.42-1.14 2.58-2.56 2.58-1.42 0-2.58-1.16-2.58-2.58s1.16-2.58 2.58-2.58c.28 0 .54.04.78.12V9.48c-.26-.04-.52-.06-.78-.06-3.82 0-6.92 3.1-6.92 6.92s3.1 6.92 6.92 6.92 6.92-3.1 6.92-6.92V9.5c1.18.88 2.64 1.4 4.22 1.4V7.22c-1.52 0-2.9-.56-3.96-1.4z" fill="#FE2C55"/>
+            </svg>
+          </div>
+          <span class="text-xs" style="color: var(--color-text-tertiary);">抖音</span>
+        </button>
+
+        <!-- Weibo -->
+        <button class="social-icon flex flex-col items-center gap-2" aria-label="分享到微博">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background-color: #E6162D;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+              <path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.812.985.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.307-.361-.168-.585.138-.227.436-.346.672-.248.239.09.318.363.185.58zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.642 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zM17.014 7.432c-.316-.093-.533-.156-.369-.563.361-.898.398-1.673.007-2.227-.731-1.048-2.733-.992-5.043-.028 0 0-.724.317-.539-.258.356-1.143.302-2.098-.25-2.649-1.248-1.248-4.573.047-7.427 2.881C1.2 6.277.088 8.642.088 10.672c0 3.637 4.674 5.851 9.244 5.851 5.989 0 9.967-3.48 9.967-6.242 0-1.67-1.409-2.614-2.976-3.073l-.339-.098z"/>
+              <path d="M19.47 5.069c.643-.716 1.107-1.586 1.107-2.517 0-1.537-1.248-2.552-2.776-2.552-1.528 0-2.776 1.015-2.776 2.552 0 .931.464 1.801 1.107 2.517.643.716 1.669 1.248 1.669 1.248s1.026-.532 1.669-1.248z" fill="#FF9933"/>
+            </svg>
+          </div>
+          <span class="text-xs" style="color: var(--color-text-tertiary);">微博</span>
+        </button>
+
+        <!-- More -->
+        <button class="social-icon flex flex-col items-center gap-2" aria-label="更多分享选项">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background-color: var(--color-bg-tertiary);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="1"></circle>
+              <circle cx="19" cy="12" r="1"></circle>
+              <circle cx="5" cy="12" r="1"></circle>
+            </svg>
+          </div>
+          <span class="text-xs" style="color: var(--color-text-tertiary);">更多</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="mx-5 h-px" style="background-color: var(--color-border-light);"></div>
+
+    <!-- ══════════════════════════════════════════
+         6. "更多操作" SECTION
+         ══════════════════════════════════════════ -->
+    <section class="px-5 py-4 pb-8">
+      <h3 class="text-sm font-semibold mb-2" style="color: var(--color-text-primary);">更多操作</h3>
+
+      <div class="rounded-xl overflow-hidden border" style="border-color: var(--color-border); background-color: var(--color-surface);">
+
+        <!-- Save to Album -->
+        <button class="more-item w-full flex items-center gap-3.5 px-4 py-3.5 text-left" style="border-bottom: 1px solid var(--color-border-light);">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: var(--color-primary-bg);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <span class="text-sm font-medium flex-1" style="color: var(--color-text-primary);">保存到相册</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Make DVD -->
+        <button class="more-item w-full flex items-center gap-3.5 px-4 py-3.5 text-left" style="border-bottom: 1px solid var(--color-border-light);">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: var(--color-primary-bg);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="3"></circle>
+              <line x1="12" y1="2" x2="12" y2="6"></line>
+              <line x1="12" y1="18" x2="12" y2="22"></line>
+            </svg>
+          </div>
+          <span class="text-sm font-medium flex-1" style="color: var(--color-text-primary);">制作 DVD</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Make Postcard -->
+        <button class="more-item w-full flex items-center gap-3.5 px-4 py-3.5 text-left" style="border-bottom: 1px solid var(--color-border-light);">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: var(--color-primary-bg);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <polyline points="22 7 12 14 2 7"></polyline>
+            </svg>
+          </div>
+          <span class="text-sm font-medium flex-1" style="color: var(--color-text-primary);">制作明信片</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Delete -->
+        <button class="more-item w-full flex items-center gap-3.5 px-4 py-3.5 text-left">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #FEF2F2;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--state-error, #C96B5A)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </div>
+          <span class="text-sm font-medium flex-1" style="color: var(--state-error, #C96B5A);">删除</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--state-error, #C96B5A)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Bottom Safe Area -->
+    <div class="h-8" style="background-color: var(--color-bg);"></div>
+
+  </div><!-- end mobile container -->
+
+
+    <style>
+    /* ── Film Strip Borders ── */
+    .film-strip-left,
+    .film-strip-right {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 28px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .film-strip-left {
+      left: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          var(--color-film-gold) 0px,
+          var(--color-film-gold) 2px,
+          transparent 2px,
+          transparent 6px
+        ),
+        linear-gradient(to right, rgba(45,31,20,0.65), rgba(45,31,20,0.45));
+    }
+
+    .film-strip-right {
+      right: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          var(--color-film-gold) 0px,
+          var(--color-film-gold) 2px,
+          transparent 2px,
+          transparent 6px
+        ),
+        linear-gradient(to left, rgba(45,31,20,0.65), rgba(45,31,20,0.45));
+    }
+
+    .film-strip-left::after,
+    .film-strip-right::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      width: 10px;
+      border-radius: 2px;
+    }
+
+    .film-strip-left::after {
+      left: 9px;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(201,169,110,0.6) 0px,
+        rgba(201,169,110,0.6) 12px,
+        transparent 12px,
+        transparent 20px
+      );
+    }
+
+    .film-strip-right::after {
+      right: 9px;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(201,169,110,0.6) 0px,
+        rgba(201,169,110,0.6) 12px,
+        transparent 12px,
+        transparent 20px
+      );
+    }
+
+    /* ── Film Grain Overlay ── */
+    .film-grain::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: var(--grain-opacity, 0.03);
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+      z-index: 5;
+    }
+
+    /* ── Play Button Pulse ── */
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    .play-btn-ring {
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    /* ── Scrubber Track ── */
+    .scrubber-track {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 52%, rgba(255,255,255,0.25) 52%, rgba(255,255,255,0.25) 100%);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .scrubber-track::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 2px solid white;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    .scrubber-track::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 2px solid white;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    /* ── Action Button Hover ── */
+    .action-btn {
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:active {
+      transform: scale(0.95);
+      background-color: var(--color-primary-bg);
+    }
+
+    /* ── Social Icon Hover ── */
+    .social-icon {
+      transition: all 0.2s ease;
+    }
+
+    .social-icon:active {
+      transform: scale(0.92);
+    }
+
+    /* ── List Item Hover ── */
+    .more-item {
+      transition: background-color 0.15s ease;
+    }
+
+    .more-item:active {
+      background-color: var(--color-bg-secondary);
+    }
+
+    /* ── Warm Vignette on Video ── */
+    .video-vignette::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(45,31,20,0.2) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ── Page Background ── */
+    body {
+      background-color: var(--color-bg);
+      min-height: 100vh;
+    }
+  </style>
+</body>
+</html>

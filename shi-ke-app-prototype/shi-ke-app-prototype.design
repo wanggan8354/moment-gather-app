@@ -1,0 +1,345 @@
+{
+  "data": [
+    {
+      "id": "page-welcome",
+      "type": "page",
+      "title": "欢迎页",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      },
+      "interactions": [
+        {
+          "domId": "welcome-start",
+          "targetPageId": "page-home",
+          "description": "开始使用，进入首页"
+        }
+      ],
+      "devMetadata": {
+        "htmlSrc": "pages/welcome.html"
+      }
+    },
+    {
+      "id": "page-home",
+      "type": "page",
+      "title": "首页",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 420,
+        "y": 0,
+        "group": 0
+      },
+      "interactions": [
+        {
+          "domId": "home-tab-templates",
+          "targetPageId": "page-templates",
+          "description": "底部Tab切换到模板页"
+        },
+        {
+          "domId": "home-tab-create",
+          "targetPageId": "page-templates",
+          "description": "创作按钮，进入模板选择"
+        },
+        {
+          "domId": "home-recent-more",
+          "targetPageId": "page-preview",
+          "description": "查看最近作品"
+        },
+        {
+          "domId": "home-template-travel",
+          "targetPageId": "page-templates",
+          "hideEdge": true,
+          "description": "推荐模板点击"
+        }
+      ],
+      "devMetadata": {
+        "htmlSrc": "pages/home.html"
+      }
+    },
+    {
+      "id": "page-templates",
+      "type": "page",
+      "title": "模板选择",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 840,
+        "y": 0,
+        "group": 0
+      },
+      "interactions": [
+        {
+          "domId": "template-back",
+          "targetPageId": "page-home",
+          "hideEdge": true,
+          "description": "返回首页"
+        },
+        {
+          "domId": "template-select-album",
+          "targetPageId": "page-generating",
+          "description": "选择相册后开始AI生成"
+        },
+        {
+          "domId": "template-use-travel",
+          "targetPageId": "page-generating",
+          "hideEdge": true,
+          "description": "使用旅行回忆模板"
+        }
+      ],
+      "devMetadata": {
+        "htmlSrc": "pages/templates.html"
+      }
+    },
+    {
+      "id": "page-generating",
+      "type": "page",
+      "title": "AI 生成中",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 1260,
+        "y": 0,
+        "group": 0
+      },
+      "interactions": [
+        {
+          "domId": "generating-cancel",
+          "targetPageId": "page-templates",
+          "hideEdge": true,
+          "description": "取消生成，返回模板页"
+        }
+      ],
+      "devMetadata": {
+        "htmlSrc": "pages/generating.html"
+      }
+    },
+    {
+      "id": "page-preview",
+      "type": "page",
+      "title": "短片预览",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 1680,
+        "y": 0,
+        "group": 0
+      },
+      "interactions": [
+        {
+          "domId": "preview-back",
+          "targetPageId": "page-home",
+          "hideEdge": true,
+          "description": "返回首页"
+        }
+      ],
+      "devMetadata": {
+        "htmlSrc": "pages/preview.html"
+      }
+    },
+    {
+      "id": "page-profile",
+      "type": "page",
+      "title": "个人中心",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 2100,
+        "y": 0,
+        "group": 0
+      },
+      "interactions": [
+        {
+          "domId": "profile-tab-home",
+          "targetPageId": "page-home",
+          "hideEdge": true,
+          "description": "底部Tab切换到首页"
+        }
+      ],
+      "devMetadata": {
+        "htmlSrc": "pages/profile.html"
+      }
+    },
+    {
+      "id": "image-001",
+      "type": "image",
+      "title": "欢迎页主视觉",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 0,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/welcome-hero.jpg"
+      }
+    },
+    {
+      "id": "image-002",
+      "type": "image",
+      "title": "旅行回忆缩略图",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 420,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/home-recent-1.jpg"
+      }
+    },
+    {
+      "id": "image-003",
+      "type": "image",
+      "title": "宝宝成长缩略图",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 840,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/home-recent-2.jpg"
+      }
+    },
+    {
+      "id": "image-004",
+      "type": "image",
+      "title": "毕业季缩略图",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 1260,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/home-recent-3.jpg"
+      }
+    },
+    {
+      "id": "image-005",
+      "type": "image",
+      "title": "旅行回忆模板",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 1680,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/template-travel.jpg"
+      }
+    },
+    {
+      "id": "image-006",
+      "type": "image",
+      "title": "宝宝成长模板",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 2100,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/template-baby.jpg"
+      }
+    },
+    {
+      "id": "image-007",
+      "type": "image",
+      "title": "纪念日模板",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 2520,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/template-anniversary.jpg"
+      }
+    },
+    {
+      "id": "image-008",
+      "type": "image",
+      "title": "毕业季模板",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 2940,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/template-graduation.jpg"
+      }
+    },
+    {
+      "id": "image-009",
+      "type": "image",
+      "title": "年度回忆模板",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 3360,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/template-annual.jpg"
+      }
+    },
+    {
+      "id": "image-010",
+      "type": "image",
+      "title": "朋友聚会模板",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 3780,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/template-party.jpg"
+      }
+    },
+    {
+      "id": "image-011",
+      "type": "image",
+      "title": "AI 生成动画",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 4200,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/generating-visual.jpg"
+      }
+    },
+    {
+      "id": "image-012",
+      "type": "image",
+      "title": "短片预览帧",
+      "version": 1,
+      "createdAt": 1782288125000,
+      "canvasData": {
+        "x": 4620,
+        "y": 830
+      },
+      "devMetadata": {
+        "imageSrc": "assets/preview-video.jpg"
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "mobile",
+    "brandCSS": "colors_and_type.css",
+    "showEdge": false,
+    "windowSize": {
+      "width": 800,
+      "height": 600
+    }
+  }
+}

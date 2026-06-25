@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾刻 - AI 生成中</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style id="theme-vars">
+/* ========================================
+   拾刻 App Prototype — Brand Design Tokens
+   Warm Film / Nostalgic Tone
+   ======================================== */
+
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #D4845A;
+  --color-primary-light: #E8A87C;
+  --color-primary-dark: #B86A42;
+  --color-primary-bg: #FDF6F0;
+
+  /* ── Warm Neutrals ── */
+  --color-bg: #FFFAF5;
+  --color-bg-secondary: #FFF5EC;
+  --color-bg-tertiary: #F5EDE4;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+
+  /* ── Text ── */
+  --color-text-primary: #2D1F14;
+  --color-text-secondary: #6B5344;
+  --color-text-tertiary: #9C8577;
+  --color-text-inverse: #FFFFFF;
+
+  /* ── Borders & Dividers ── */
+  --color-border: #E8DDD2;
+  --color-border-light: #F0E8DF;
+
+  /* ── Accent / Film Tones ── */
+  --color-film-gold: #C9A96E;
+  --color-film-rose: #D4847A;
+  --color-film-sage: #8BA888;
+  --color-film-sky: #7BA7BC;
+
+  /* ── State Colors ── */
+  --state-success: #6BAF7B;
+  --state-warning: #D4A04A;
+  --state-error: #C96B5A;
+  --state-info: #6B8FC9;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows (static alpha ≤ 0.05) ── */
+  --shadow-sm: 0 1px 3px rgba(45, 31, 20, 0.04);
+  --shadow-md: 0 2px 8px rgba(45, 31, 20, 0.05);
+  --shadow-lg: 0 8px 24px rgba(45, 31, 20, 0.05);
+  --shadow-float: 0 12px 40px rgba(45, 31, 20, 0.08);
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Film Grain Overlay ── */
+  --grain-opacity: 0.03;
+}
+
+/* ── Typography Classes ── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-md {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-sm {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-surface); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+
+    <!-- Page-specific styles -->
+    <style>
+      /* ── Darkroom Background ── */
+      .generating-page {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow: hidden;
+        background: linear-gradient(
+          160deg,
+          #2D1F14 0%,
+          #3D2A1A 25%,
+          #4A3220 50%,
+          #3D2A1A 75%,
+          #2D1F14 100%
+        );
+      }
+
+      /* Blurred background image overlay */
+      .generating-bg-image {
+        position: absolute;
+        inset: 0;
+        background-image: url('../assets/generating-visual.jpg');
+        background-size: cover;
+        background-position: center;
+        filter: blur(30px) brightness(0.3) saturate(0.6) sepia(0.3);
+        opacity: 0.6;
+        animation: bgBreath 8s ease-in-out infinite;
+      }
+
+      /* Warm ambient glow */
+      .generating-bg-glow {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 60% 50% at 50% 45%,
+          rgba(212, 132, 90, 0.15) 0%,
+          rgba(201, 169, 110, 0.08) 40%,
+          transparent 70%
+        );
+        animation: glowPulse 6s ease-in-out infinite;
+      }
+
+      /* Film grain overlay */
+      .generating-grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-size: 128px 128px;
+      }
+
+      /* ── Film Reel Animation ── */
+      .film-reel-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+      }
+
+      .film-reel {
+        width: 120px;
+        height: 120px;
+        animation: reelSpin 4s linear infinite;
+      }
+
+      .film-reel-outer {
+        fill: none;
+        stroke: rgba(201, 169, 110, 0.6);
+        stroke-width: 2;
+      }
+
+      .film-reel-inner {
+        fill: none;
+        stroke: rgba(212, 132, 90, 0.5);
+        stroke-width: 1.5;
+      }
+
+      .film-reel-spoke {
+        fill: none;
+        stroke: rgba(201, 169, 110, 0.4);
+        stroke-width: 1.5;
+      }
+
+      .film-reel-hole {
+        fill: rgba(201, 169, 110, 0.3);
+      }
+
+      .film-reel-center {
+        fill: rgba(212, 132, 90, 0.5);
+      }
+
+      /* Warm glow behind reel */
+      .film-reel-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(212, 132, 90, 0.2) 0%,
+          rgba(201, 169, 110, 0.1) 40%,
+          transparent 70%
+        );
+        animation: glowPulse 3s ease-in-out infinite;
+      }
+
+      /* Film strip trailing from reel */
+      .film-strip {
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 80px;
+        overflow: hidden;
+        opacity: 0.4;
+      }
+
+      .film-strip-inner {
+        width: 100%;
+        height: 200%;
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 6px,
+          rgba(201, 169, 110, 0.3) 6px,
+          rgba(201, 169, 110, 0.3) 8px,
+          transparent 8px,
+          transparent 14px
+        );
+        animation: stripScroll 2s linear infinite;
+      }
+
+      /* ── Progress Steps ── */
+      .step-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+      }
+
+      .step-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 12px;
+        transition: all 0.4s ease;
+      }
+
+      .step-completed {
+        background: var(--color-primary);
+        box-shadow: 0 0 12px rgba(212, 132, 90, 0.4);
+      }
+
+      .step-active {
+        background: transparent;
+        border: 2px solid var(--color-primary);
+        animation: dotPulse 2s ease-in-out infinite;
+      }
+
+      .step-active-inner {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        animation: dotPulseInner 2s ease-in-out infinite;
+      }
+
+      .step-pending {
+        background: rgba(156, 133, 119, 0.2);
+        border: 1.5px solid rgba(156, 133, 119, 0.3);
+      }
+
+      .step-pending-inner {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(156, 133, 119, 0.4);
+      }
+
+      .step-text {
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      .step-text-completed {
+        color: var(--color-primary-light);
+      }
+
+      .step-text-active {
+        color: rgba(232, 168, 124, 0.9);
+      }
+
+      .step-text-pending {
+        color: rgba(156, 133, 119, 0.5);
+      }
+
+      /* ── Progress Bar ── */
+      .progress-track {
+        width: 100%;
+        height: 4px;
+        border-radius: 9999px;
+        background: rgba(156, 133, 119, 0.15);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 9999px;
+        background: linear-gradient(
+          90deg,
+          var(--color-primary-dark) 0%,
+          var(--color-primary) 40%,
+          var(--color-film-gold) 100%
+        );
+        width: 0%;
+        animation: progressGrow 3s ease-out forwards;
+        position: relative;
+      }
+
+      .progress-fill::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: -2px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--color-film-gold);
+        box-shadow: 0 0 8px rgba(201, 169, 110, 0.6);
+        animation: progressGlow 2s ease-in-out infinite;
+      }
+
+      /* ── Fun Fact Text ── */
+      .fun-fact {
+        font-family: var(--font-body);
+        font-size: 13px;
+        color: rgba(201, 169, 110, 0.7);
+        text-align: center;
+        line-height: 1.5;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .fun-fact-text {
+        animation: factFade 6s ease-in-out infinite;
+      }
+
+      /* ── Keyframe Animations ── */
+      @keyframes reelSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes glowPulse {
+        0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+      }
+
+      @keyframes bgBreath {
+        0%, 100% { transform: scale(1); opacity: 0.6; }
+        50% { transform: scale(1.05); opacity: 0.7; }
+      }
+
+      @keyframes dotPulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(212, 132, 90, 0.3); }
+        50% { box-shadow: 0 0 0 6px rgba(212, 132, 90, 0); }
+      }
+
+      @keyframes dotPulseInner {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(0.7); }
+      }
+
+      @keyframes progressGrow {
+        0% { width: 0%; }
+        100% { width: 67%; }
+      }
+
+      @keyframes progressGlow {
+        0%, 100% { box-shadow: 0 0 6px rgba(201, 169, 110, 0.4); }
+        50% { box-shadow: 0 0 14px rgba(201, 169, 110, 0.8); }
+      }
+
+      @keyframes stripScroll {
+        from { transform: translateY(0); }
+        to { transform: translateY(-50%); }
+      }
+
+      @keyframes factFade {
+        0%, 15% { opacity: 0; transform: translateY(6px); }
+        25%, 75% { opacity: 1; transform: translateY(0); }
+        85%, 100% { opacity: 0; transform: translateY(-6px); }
+      }
+
+      /* ── Cancel Button ── */
+      .cancel-btn {
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(156, 133, 119, 0.5);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px 20px;
+        letter-spacing: 0.02em;
+        transition: color 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .cancel-btn:hover,
+      .cancel-btn:active {
+        color: rgba(232, 168, 124, 0.8);
+      }
+
+      /* ── Light leak effect ── */
+      .light-leak {
+        position: absolute;
+        top: 0;
+        right: -20%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(
+          105deg,
+          transparent 0%,
+          rgba(212, 132, 90, 0.03) 30%,
+          rgba(201, 169, 110, 0.05) 50%,
+          rgba(212, 132, 90, 0.02) 70%,
+          transparent 100%
+        );
+        animation: leakDrift 12s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes leakDrift {
+        0%, 100% { transform: translateX(0) rotate(0deg); opacity: 0.5; }
+        33% { transform: translateX(-10px) rotate(1deg); opacity: 0.8; }
+        66% { transform: translateX(5px) rotate(-0.5deg); opacity: 0.6; }
+      }
+
+      /* Vignette */
+      .vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 70% 60% at 50% 50%,
+          transparent 0%,
+          rgba(45, 31, 20, 0.4) 100%
+        );
+        pointer-events: none;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased" style="margin:0; padding:0; background:#2D1F14;">
+
+    <main class="generating-page" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; min-height:100dvh; padding:40px 24px;">
+
+      <!-- Background layers -->
+      <div class="generating-bg-image"></div>
+      <div class="generating-bg-glow"></div>
+      <div class="generating-grain"></div>
+      <div class="light-leak"></div>
+      <div class="vignette"></div>
+
+      <!-- Center content -->
+      <div style="position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; width:100%; max-width:320px;">
+
+        <!-- Film Reel Animation -->
+        <div class="film-reel-container">
+          <div class="film-reel-glow"></div>
+          <svg class="film-reel" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring -->
+            <circle class="film-reel-outer" cx="60" cy="60" r="54" />
+            <circle class="film-reel-outer" cx="60" cy="60" r="48" />
+            <!-- Inner ring -->
+            <circle class="film-reel-inner" cx="60" cy="60" r="20" />
+            <!-- Spokes -->
+            <line class="film-reel-spoke" x1="60" y1="12" x2="60" y2="40" />
+            <line class="film-reel-spoke" x1="60" y1="80" x2="60" y2="108" />
+            <line class="film-reel-spoke" x1="12" y1="60" x2="40" y2="60" />
+            <line class="film-reel-spoke" x1="80" y1="60" x2="108" y2="60" />
+            <!-- Diagonal spokes -->
+            <line class="film-reel-spoke" x1="25" y1="25" x2="44" y2="44" />
+            <line class="film-reel-spoke" x1="76" y1="76" x2="95" y2="95" />
+            <line class="film-reel-spoke" x1="95" y1="25" x2="76" y2="44" />
+            <line class="film-reel-spoke" x1="44" y1="76" x2="25" y2="95" />
+            <!-- Perforation holes -->
+            <circle class="film-reel-hole" cx="60" cy="12" r="3" />
+            <circle class="film-reel-hole" cx="60" cy="108" r="3" />
+            <circle class="film-reel-hole" cx="12" cy="60" r="3" />
+            <circle class="film-reel-hole" cx="108" cy="60" r="3" />
+            <circle class="film-reel-hole" cx="25" cy="25" r="3" />
+            <circle class="film-reel-hole" cx="95" cy="95" r="3" />
+            <circle class="film-reel-hole" cx="95" cy="25" r="3" />
+            <circle class="film-reel-hole" cx="25" cy="95" r="3" />
+            <!-- Center hub -->
+            <circle class="film-reel-center" cx="60" cy="60" r="8" />
+            <circle cx="60" cy="60" r="3" fill="rgba(45,31,20,0.6)" />
+          </svg>
+          <!-- Film strip trailing down -->
+          <div class="film-strip">
+            <div class="film-strip-inner"></div>
+          </div>
+        </div>
+
+        <!-- Status text -->
+        <h1 style="
+          font-family: var(--font-display);
+          font-size: 22px;
+          font-weight: 600;
+          color: rgba(232, 168, 124, 0.95);
+          text-align: center;
+          margin-top: 32px;
+          margin-bottom: 8px;
+          letter-spacing: 0.02em;
+          line-height: 1.4;
+        ">AI 正在为你剪辑回忆</h1>
+
+        <!-- Subtitle -->
+        <p style="
+          font-family: var(--font-body);
+          font-size: 13px;
+          color: rgba(156, 133, 119, 0.5);
+          text-align: center;
+          margin-bottom: 36px;
+        ">请稍候，美好的故事即将呈现</p>
+
+        <!-- Progress Steps -->
+        <div style="width:100%; margin-bottom: 28px;">
+          <!-- Step 1: Completed -->
+          <div class="step-item">
+            <div class="step-dot step-completed">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M3 7L6 10L11 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="step-text step-text-completed">分析相册照片</span>
+          </div>
+
+          <!-- Step 2: In Progress -->
+          <div class="step-item">
+            <div class="step-dot step-active">
+              <div class="step-active-inner"></div>
+            </div>
+            <span class="step-text step-text-active">匹配叙事线</span>
+          </div>
+
+          <!-- Step 3: Pending -->
+          <div class="step-item">
+            <div class="step-dot step-pending">
+              <div class="step-pending-inner"></div>
+            </div>
+            <span class="step-text step-text-pending">生成电影短片</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div style="width:100%; margin-bottom: 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-family:var(--font-body); font-size:12px; color:rgba(156,133,119,0.5);">处理进度</span>
+            <span style="font-family:var(--font-body); font-size:12px; color:var(--color-film-gold); font-weight:600;">67%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Fun Fact -->
+        <div class="fun-fact" style="margin-top:20px; margin-bottom:40px;">
+          <span class="fun-fact-text">已从 1,247 张照片中精选 38 个关键时刻</span>
+        </div>
+
+        <!-- Bottom section -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+          <p style="
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: rgba(156, 133, 119, 0.4);
+            letter-spacing: 0.02em;
+          ">预计还需 30 秒</p>
+          <button class="cancel-btn" data-dom-id="generating-cancel">取消</button>
+        </div>
+
+      </div>
+
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

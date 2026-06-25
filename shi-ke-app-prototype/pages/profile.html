@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾刻 - 个人中心</title>
+    <style id="theme-vars">
+/* ========================================
+   拾刻 App Prototype — Brand Design Tokens
+   Warm Film / Nostalgic Tone
+   ======================================== */
+
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #D4845A;
+  --color-primary-light: #E8A87C;
+  --color-primary-dark: #B86A42;
+  --color-primary-bg: #FDF6F0;
+
+  /* ── Warm Neutrals ── */
+  --color-bg: #FFFAF5;
+  --color-bg-secondary: #FFF5EC;
+  --color-bg-tertiary: #F5EDE4;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+
+  /* ── Text ── */
+  --color-text-primary: #2D1F14;
+  --color-text-secondary: #6B5344;
+  --color-text-tertiary: #9C8577;
+  --color-text-inverse: #FFFFFF;
+
+  /* ── Borders & Dividers ── */
+  --color-border: #E8DDD2;
+  --color-border-light: #F0E8DF;
+
+  /* ── Accent / Film Tones ── */
+  --color-film-gold: #C9A96E;
+  --color-film-rose: #D4847A;
+  --color-film-sage: #8BA888;
+  --color-film-sky: #7BA7BC;
+
+  /* ── State Colors ── */
+  --state-success: #6BAF7B;
+  --state-warning: #D4A04A;
+  --state-error: #C96B5A;
+  --state-info: #6B8FC9;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows (static alpha ≤ 0.05) ── */
+  --shadow-sm: 0 1px 3px rgba(45, 31, 20, 0.04);
+  --shadow-md: 0 2px 8px rgba(45, 31, 20, 0.05);
+  --shadow-lg: 0 8px 24px rgba(45, 31, 20, 0.05);
+  --shadow-float: 0 12px 40px rgba(45, 31, 20, 0.08);
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Film Grain Overlay ── */
+  --grain-opacity: 0.03;
+}
+
+/* ── Typography Classes ── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-md {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-sm {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-surface); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body>
+  <div class="mobile-container">
+
+    <!-- ════════════════════════════════════════════
+         PROFILE HEADER
+         ════════════════════════════════════════════ -->
+    <div class="relative pt-12 pb-6 px-5 overflow-hidden">
+      <!-- Warm glow background -->
+      <div class="warm-glow"></div>
+
+      <!-- Top bar -->
+      <div class="flex items-center justify-between mb-8 relative z-10">
+        <h1 class="font-display text-lg font-bold text-text-primary tracking-tight">个人中心</h1>
+        <button class="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-sm" data-dom-id="profile-settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B5344" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Avatar + Info -->
+      <div class="flex flex-col items-center relative z-10">
+        <!-- Avatar with warm gradient ring -->
+        <div class="avatar-ring mb-4">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg, var(--color-primary-light), var(--color-film-rose));display:flex;align-items:center;justify-content:center;font-size:2rem;color:white;font-family:var(--font-display);font-weight:700;">明</div>
+        </div>
+
+        <!-- Name -->
+        <div class="flex items-center gap-2 mb-1.5">
+          <h2 class="font-display text-2xl font-bold text-text-primary tracking-tight">小明</h2>
+        </div>
+
+        <!-- Bio -->
+        <p class="film-credit mb-6">已制作 12 部人生电影</p>
+
+        <!-- Stats Row -->
+        <div class="flex w-full bg-white rounded-2xl shadow-sm py-4 px-2">
+          <div class="stat-item">
+            <div class="font-display text-xl font-bold text-text-primary">12</div>
+            <div class="text-xs font-medium text-text-tertiary mt-0.5">部作品</div>
+          </div>
+          <div class="stat-item">
+            <div class="font-display text-xl font-bold text-text-primary">48</div>
+            <div class="text-xs font-medium text-text-tertiary mt-0.5">分钟</div>
+          </div>
+          <div class="stat-item">
+            <div class="font-display text-xl font-bold text-state-success">免费</div>
+            <div class="text-xs font-medium text-text-tertiary mt-0.5">畅用</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         MY WORKS SECTION
+         ════════════════════════════════════════════ -->
+    <div class="mt-2 mb-4">
+      <div class="flex items-center justify-between px-5 mb-3">
+        <h3 class="section-title">我的作品</h3>
+        <a href="#" class="text-xs font-medium text-primary">查看全部</a>
+      </div>
+
+      <div class="scroll-row">
+        <!-- Card 1 -->
+        <div class="video-card">
+          <div class="relative">
+            <img src="../assets/home-recent-1.jpg" alt="三亚之旅" class="thumb" loading="lazy">
+            <span class="duration">2:34</span>
+          </div>
+          <div class="p-2.5">
+            <h4 class="text-sm font-semibold text-text-primary truncate">三亚之旅</h4>
+            <p class="text-xs text-text-tertiary mt-0.5">2024.12.20</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="video-card">
+          <div class="relative">
+            <img src="../assets/home-recent-2.jpg" alt="小宝的第一个夏天" class="thumb" loading="lazy">
+            <span class="duration">1:48</span>
+          </div>
+          <div class="p-2.5">
+            <h4 class="text-sm font-semibold text-text-primary truncate">小宝的第一个夏天</h4>
+            <p class="text-xs text-text-tertiary mt-0.5">2024.08.15</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="video-card">
+          <div class="relative">
+            <img src="../assets/home-recent-3.jpg" alt="毕业快乐" class="thumb" loading="lazy">
+            <span class="duration">3:12</span>
+          </div>
+          <div class="p-2.5">
+            <h4 class="text-sm font-semibold text-text-primary truncate">毕业快乐</h4>
+            <p class="text-xs text-text-tertiary mt-0.5">2024.06.28</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         MENU LIST
+         ════════════════════════════════════════════ -->
+    <div class="px-5 pb-32">
+      <div class="menu-card">
+
+        <!-- 存储管理 -->
+        <div class="menu-item">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3" style="background: rgba(212,132,90,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4845A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <span class="text-sm font-semibold text-text-primary">存储管理</span>
+            <div class="flex items-center gap-1.5 mt-1">
+              <span class="text-xs text-text-tertiary">免费无限存储</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6BAF7B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+
+        <!-- 模板收藏 -->
+        <div class="menu-item">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3" style="background: rgba(212,132,122,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4847A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <span class="text-sm font-semibold text-text-primary">模板收藏</span>
+          </div>
+          <span class="text-xs font-medium text-text-tertiary mr-2">6 个模板</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+
+        <!-- 分享记录 -->
+        <div class="menu-item">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3" style="background: rgba(139,168,136,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8BA888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"/>
+              <circle cx="6" cy="12" r="3"/>
+              <circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <span class="text-sm font-semibold text-text-primary">分享记录</span>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+
+        <!-- 设置 -->
+        <div class="menu-item">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3" style="background: rgba(107,131,201,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B8FC9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          </div>
+          <div class="flex-1">
+            <span class="text-sm font-semibold text-text-primary">设置</span>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+
+        <!-- 帮助与反馈 -->
+        <div class="menu-item">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3" style="background: rgba(156,133,119,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <span class="text-sm font-semibold text-text-primary">帮助与反馈</span>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         BOTTOM TAB BAR
+         ════════════════════════════════════════════ -->
+    <div class="tab-bar">
+      <!-- 首页 -->
+      <a href="../index.html" class="tab-item" data-dom-id="profile-tab-home">
+        <div class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <span class="tab-label">首页</span>
+      </a>
+
+      <!-- 模板 -->
+      <a href="#" class="tab-item">
+        <div class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9C8577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+        </div>
+        <span class="tab-label">模板</span>
+      </a>
+
+      <!-- 创作 (+) -->
+      <div class="tab-item" style="padding:0;">
+        <div class="tab-create">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 我的 (active) -->
+      <a href="profile.html" class="tab-item active">
+        <div class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4845A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <span class="tab-label">我的</span>
+      </a>
+    </div>
+
+  </div>
+
+    <style>
+    /* ── Base ── */
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #FFFAF5;
+      color: #2D1F14;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Mobile Container ── */
+    .mobile-container {
+      max-width: 375px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      background-color: #FFFAF5;
+      overflow-x: hidden;
+    }
+
+    /* ── Film Grain Overlay ── */
+    .mobile-container::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
+    }
+
+    /* ── Avatar Gradient Border ── */
+    .avatar-ring {
+      background: linear-gradient(135deg, #C9A96E, #D4845A, #D4847A, #C9A96E);
+      padding: 3px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avatar-ring img {
+      border-radius: 9999px;
+      border: 3px solid #FFFAF5;
+    }
+
+    /* ── PRO Badge ── */
+    .pro-badge {
+      background: linear-gradient(135deg, #C9A96E, #D4A04A);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* ── Stats Row ── */
+    .stat-item {
+      text-align: center;
+      flex: 1;
+      position: relative;
+    }
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, #E8DDD2, transparent);
+    }
+
+    /* ── Video Card ── */
+    .video-card {
+      flex-shrink: 0;
+      width: 140px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(45, 31, 20, 0.06);
+      transition: transform 0.2s ease;
+    }
+    .video-card:active {
+      transform: scale(0.97);
+    }
+    .video-card .thumb {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      display: block;
+      position: relative;
+    }
+    .video-card .duration {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      background: rgba(45, 31, 20, 0.7);
+      backdrop-filter: blur(4px);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Menu Card ── */
+    .menu-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(45, 31, 20, 0.04);
+      overflow: hidden;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      position: relative;
+    }
+    .menu-item:active {
+      background-color: #FFF5EC;
+    }
+    .menu-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 52px;
+      right: 16px;
+      height: 1px;
+      background: #F0E8DF;
+    }
+
+    /* ── Storage Progress ── */
+    .storage-bar {
+      height: 6px;
+      background: #F5EDE4;
+      border-radius: 9999px;
+      overflow: hidden;
+      flex: 1;
+    }
+    .storage-bar .fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #D4845A, #C9A96E);
+      width: 32%;
+    }
+
+    /* ── Bottom Tab Bar ── */
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 375px;
+      background: rgba(255, 250, 245, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid #F0E8DF;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding: 6px 0 28px 0;
+      z-index: 100;
+    }
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      padding: 4px 12px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .tab-item .tab-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tab-item .tab-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: #9C8577;
+    }
+    .tab-item.active .tab-label {
+      color: #D4845A;
+      font-weight: 600;
+    }
+    .tab-create {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D4845A, #E8A87C);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(212, 132, 90, 0.35);
+      margin-top: -16px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .tab-create:active {
+      transform: scale(0.93);
+    }
+
+    /* ── Horizontal Scroll ── */
+    .scroll-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 0 20px 8px 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .scroll-row::-webkit-scrollbar {
+      display: none;
+    }
+    .scroll-row > * {
+      scroll-snap-align: start;
+    }
+
+    /* ── Section Title ── */
+    .section-title {
+      font-family: 'Inter', 'Noto Sans SC', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #2D1F14;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Film Credits Style ── */
+    .film-credit {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #9C8577;
+      font-size: 12px;
+    }
+
+    /* ── Warm Glow Background ── */
+    .warm-glow {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(212, 132, 90, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+  </style>
+</body>
+</html>

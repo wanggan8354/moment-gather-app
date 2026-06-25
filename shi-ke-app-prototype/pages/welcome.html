@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾刻 - 欢迎页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style id="theme-vars">
+/* ========================================
+   拾刻 App Prototype — Brand Design Tokens
+   Warm Film / Nostalgic Tone
+   ======================================== */
+
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #D4845A;
+  --color-primary-light: #E8A87C;
+  --color-primary-dark: #B86A42;
+  --color-primary-bg: #FDF6F0;
+
+  /* ── Warm Neutrals ── */
+  --color-bg: #FFFAF5;
+  --color-bg-secondary: #FFF5EC;
+  --color-bg-tertiary: #F5EDE4;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+
+  /* ── Text ── */
+  --color-text-primary: #2D1F14;
+  --color-text-secondary: #6B5344;
+  --color-text-tertiary: #9C8577;
+  --color-text-inverse: #FFFFFF;
+
+  /* ── Borders & Dividers ── */
+  --color-border: #E8DDD2;
+  --color-border-light: #F0E8DF;
+
+  /* ── Accent / Film Tones ── */
+  --color-film-gold: #C9A96E;
+  --color-film-rose: #D4847A;
+  --color-film-sage: #8BA888;
+  --color-film-sky: #7BA7BC;
+
+  /* ── State Colors ── */
+  --state-success: #6BAF7B;
+  --state-warning: #D4A04A;
+  --state-error: #C96B5A;
+  --state-info: #6B8FC9;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows (static alpha ≤ 0.05) ── */
+  --shadow-sm: 0 1px 3px rgba(45, 31, 20, 0.04);
+  --shadow-md: 0 2px 8px rgba(45, 31, 20, 0.05);
+  --shadow-lg: 0 8px 24px rgba(45, 31, 20, 0.05);
+  --shadow-float: 0 12px 40px rgba(45, 31, 20, 0.08);
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Film Grain Overlay ── */
+  --grain-opacity: 0.03;
+}
+
+/* ── Typography Classes ── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-md {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-sm {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-surface); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased overflow-hidden">
+    <main class="relative w-full min-h-screen flex flex-col items-center justify-center" style="max-width: 375px; margin: 0 auto;">
+
+      <!-- Full-screen hero background -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="../assets/welcome-hero.jpg"
+          alt="Welcome background"
+          class="w-full h-full object-cover"
+        />
+        <!-- Warm overlay gradient -->
+        <div class="absolute inset-0" style="background: linear-gradient(
+          180deg,
+          rgba(45, 31, 20, 0.55) 0%,
+          rgba(45, 31, 20, 0.40) 40%,
+          rgba(212, 132, 90, 0.30) 70%,
+          rgba(184, 106, 66, 0.50) 100%
+        );"></div>
+      </div>
+
+      <!-- Film grain texture overlay -->
+      <div class="absolute inset-0 z-10 pointer-events-none" style="
+        opacity: var(--grain-opacity);
+        background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%221%22/%3E%3C/svg%3E');
+        background-repeat: repeat;
+        mix-blend-mode: overlay;
+      "></div>
+
+      <!-- Content area -->
+      <div class="relative z-20 flex flex-col items-center px-8 text-center" style="padding-top: 0; padding-bottom: 0;">
+
+        <!-- Film reel + clock logo (CSS/SVG) -->
+        <div class="mb-8" style="animation: fadeInDown 1.2s ease-out both;">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 12px rgba(212, 132, 90, 0.35));">
+            <!-- Film reel outer circle -->
+            <circle cx="40" cy="40" r="36" stroke="var(--color-film-gold)" stroke-width="2.5" fill="none" opacity="0.9"/>
+            <!-- Film reel inner circle -->
+            <circle cx="40" cy="40" r="24" stroke="var(--color-film-gold)" stroke-width="1.5" fill="none" opacity="0.6"/>
+            <!-- Film reel sprocket holes -->
+            <circle cx="40" cy="8" r="3" fill="var(--color-film-gold)" opacity="0.8"/>
+            <circle cx="40" cy="72" r="3" fill="var(--color-film-gold)" opacity="0.8"/>
+            <circle cx="8" cy="40" r="3" fill="var(--color-film-gold)" opacity="0.8"/>
+            <circle cx="72" cy="40" r="3" fill="var(--color-film-gold)" opacity="0.8"/>
+            <!-- Diagonal sprocket holes -->
+            <circle cx="16.2" cy="16.2" r="2.5" fill="var(--color-film-gold)" opacity="0.6"/>
+            <circle cx="63.8" cy="16.2" r="2.5" fill="var(--color-film-gold)" opacity="0.6"/>
+            <circle cx="16.2" cy="63.8" r="2.5" fill="var(--color-film-gold)" opacity="0.6"/>
+            <circle cx="63.8" cy="63.8" r="2.5" fill="var(--color-film-gold)" opacity="0.6"/>
+            <!-- Clock hands center -->
+            <circle cx="40" cy="40" r="3.5" fill="var(--color-primary-light)"/>
+            <!-- Clock hour hand (pointing ~10 o'clock) -->
+            <line x1="40" y1="40" x2="30" y2="28" stroke="var(--color-text-inverse)" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Clock minute hand (pointing ~2 o'clock) -->
+            <line x1="40" y1="40" x2="52" y2="26" stroke="var(--color-text-inverse)" stroke-width="1.8" stroke-linecap="round"/>
+            <!-- Subtle film strip accent on left -->
+            <rect x="2" y="30" width="6" height="20" rx="1" fill="var(--color-film-gold)" opacity="0.4"/>
+            <rect x="3" y="33" width="4" height="3" rx="0.5" fill="var(--color-bg)" opacity="0.3"/>
+            <rect x="3" y="38" width="4" height="3" rx="0.5" fill="var(--color-bg)" opacity="0.3"/>
+            <rect x="3" y="43" width="4" height="3" rx="0.5" fill="var(--color-bg)" opacity="0.3"/>
+          </svg>
+        </div>
+
+        <!-- Brand name -->
+        <h1 class="mb-4" style="
+          font-family: var(--font-display);
+          font-size: 3.5rem;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: 0.08em;
+          color: var(--color-text-inverse);
+          text-shadow: 0 2px 16px rgba(212, 132, 90, 0.4), 0 1px 4px rgba(45, 31, 20, 0.3);
+          animation: fadeInUp 1s ease-out 0.3s both;
+        ">拾刻</h1>
+
+        <!-- Tagline -->
+        <p class="mb-2" style="
+          font-family: 'Noto Serif SC', var(--font-display), Georgia, serif;
+          font-size: 1.125rem;
+          font-weight: 400;
+          line-height: 1.6;
+          letter-spacing: 0.15em;
+          color: rgba(255, 255, 255, 0.85);
+          text-shadow: 0 1px 8px rgba(45, 31, 20, 0.3);
+          animation: fadeInUp 1s ease-out 0.6s both;
+        ">把日子剪成一部电影</p>
+
+        <!-- Decorative divider -->
+        <div class="my-6" style="
+          width: 48px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, var(--color-film-gold), transparent);
+          opacity: 0.6;
+          animation: fadeIn 1.2s ease-out 0.8s both;
+        "></div>
+
+        <!-- Spacer to push CTA toward bottom -->
+        <div class="flex-grow" style="min-height: 120px;"></div>
+
+        <!-- CTA Button -->
+        <button
+          data-dom-id="welcome-start"
+          class="w-full mb-4"
+          style="
+            max-width: 260px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-text-inverse);
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212, 132, 90, 0.4), 0 2px 6px rgba(184, 106, 66, 0.25);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 1s both;
+          "
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 28px rgba(212, 132, 90, 0.5), 0 3px 8px rgba(184, 106, 66, 0.3)';"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(212, 132, 90, 0.4), 0 2px 6px rgba(184, 106, 66, 0.25)';"
+        >开始你的第一部电影</button>
+
+        <!-- Subtitle below CTA -->
+        <p style="
+          font-family: var(--font-body);
+          font-size: 0.75rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: rgba(255, 255, 255, 0.55);
+          letter-spacing: 0.02em;
+          animation: fadeInUp 1s ease-out 1.2s both;
+          padding-bottom: 48px;
+        ">授权相册，AI 自动生成回忆短片</p>
+
+      </div>
+
+    </main>
+
+    <!-- Animations -->
+    <style>
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    </style>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

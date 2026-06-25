@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾刻 - 首页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style id="theme-vars">
+/* ========================================
+   拾刻 App Prototype — Brand Design Tokens
+   Warm Film / Nostalgic Tone
+   ======================================== */
+
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #D4845A;
+  --color-primary-light: #E8A87C;
+  --color-primary-dark: #B86A42;
+  --color-primary-bg: #FDF6F0;
+
+  /* ── Warm Neutrals ── */
+  --color-bg: #FFFAF5;
+  --color-bg-secondary: #FFF5EC;
+  --color-bg-tertiary: #F5EDE4;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+
+  /* ── Text ── */
+  --color-text-primary: #2D1F14;
+  --color-text-secondary: #6B5344;
+  --color-text-tertiary: #9C8577;
+  --color-text-inverse: #FFFFFF;
+
+  /* ── Borders & Dividers ── */
+  --color-border: #E8DDD2;
+  --color-border-light: #F0E8DF;
+
+  /* ── Accent / Film Tones ── */
+  --color-film-gold: #C9A96E;
+  --color-film-rose: #D4847A;
+  --color-film-sage: #8BA888;
+  --color-film-sky: #7BA7BC;
+
+  /* ── State Colors ── */
+  --state-success: #6BAF7B;
+  --state-warning: #D4A04A;
+  --state-error: #C96B5A;
+  --state-info: #6B8FC9;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows (static alpha <= 0.05) ── */
+  --shadow-sm: 0 1px 3px rgba(45, 31, 20, 0.04);
+  --shadow-md: 0 2px 8px rgba(45, 31, 20, 0.05);
+  --shadow-lg: 0 8px 24px rgba(45, 31, 20, 0.05);
+  --shadow-float: 0 12px 40px rgba(45, 31, 20, 0.08);
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Film Grain Overlay ── */
+  --grain-opacity: 0.03;
+}
+
+/* ── Typography Classes ── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-md {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-sm {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-surface); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+
+      /* ── Mobile Shell ── */
+      .mobile-shell {
+        max-width: 375px;
+        margin: 0 auto;
+        min-height: 100vh;
+        background: var(--color-bg);
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* ── Film Strip Decorative Border ── */
+      .film-strip-top {
+        position: relative;
+      }
+      .film-strip-top::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--color-film-gold) 0px,
+          var(--color-film-gold) 12px,
+          transparent 12px,
+          transparent 16px,
+          var(--color-film-gold) 16px,
+          var(--color-film-gold) 28px,
+          transparent 28px,
+          transparent 32px
+        );
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        opacity: 0.7;
+      }
+
+      /* ── Film Strip Vertical Borders ── */
+      .film-strip-frame {
+        position: relative;
+        border: 2px solid var(--color-film-gold);
+        border-radius: var(--radius-lg);
+        opacity: 0.6;
+      }
+      .film-strip-frame::before,
+      .film-strip-frame::after {
+        content: '';
+        position: absolute;
+        top: 6px;
+        bottom: 6px;
+        width: 4px;
+        background: repeating-linear-gradient(
+          180deg,
+          var(--color-film-gold) 0px,
+          var(--color-film-gold) 6px,
+          transparent 6px,
+          transparent 10px
+        );
+        opacity: 0.5;
+      }
+      .film-strip-frame::before { left: -6px; }
+      .film-strip-frame::after { right: -6px; }
+
+      /* ── Hero Banner Gradient ── */
+      .hero-gradient {
+        background: linear-gradient(135deg, #D4845A 0%, #E8A87C 40%, #C9A96E 100%);
+      }
+
+      /* ── Video Card Hover ── */
+      .video-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .video-card:active {
+        transform: scale(0.97);
+      }
+
+      /* ── Play Button Overlay ── */
+      .play-overlay {
+        background: rgba(45, 31, 20, 0.35);
+        backdrop-filter: blur(2px);
+        transition: background 0.2s ease;
+      }
+      .video-card:hover .play-overlay {
+        background: rgba(45, 31, 20, 0.5);
+      }
+
+      /* ── Duration Badge ── */
+      .duration-badge {
+        background: rgba(45, 31, 20, 0.7);
+        backdrop-filter: blur(4px);
+      }
+
+      /* ── Template Card ── */
+      .template-card {
+        transition: transform 0.2s ease;
+      }
+      .template-card:active {
+        transform: scale(0.96);
+      }
+
+      /* ── Bottom Tab Bar ── */
+      .tab-bar {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--color-border-light);
+      }
+      .tab-item {
+        transition: color 0.15s ease;
+      }
+      .tab-item.active {
+        color: var(--color-primary);
+      }
+      .tab-item:not(.active) {
+        color: var(--color-text-tertiary);
+      }
+
+      /* ── Create Button ── */
+      .create-btn {
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+        box-shadow: 0 4px 16px rgba(212, 132, 90, 0.35);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .create-btn:active {
+        transform: scale(0.92);
+        box-shadow: 0 2px 8px rgba(212, 132, 90, 0.25);
+      }
+
+      /* ── Notification Dot ── */
+      .notification-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--color-film-rose);
+        border-radius: 50%;
+        border: 2px solid var(--color-bg);
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      /* ── Scroll Hint ── */
+      .scroll-hint {
+        background: linear-gradient(90deg, transparent 0%, var(--color-bg) 100%);
+        pointer-events: none;
+      }
+
+      /* ── Film Grain Overlay ── */
+      .grain-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: var(--grain-opacity);
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      }
+
+      /* ── Warm Glow on Avatar ── */
+      .avatar-glow {
+        box-shadow: 0 0 0 3px var(--color-primary-bg), 0 0 0 5px var(--color-primary-light);
+      }
+
+      /* ── Section Title ── */
+      .section-title {
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 1.125rem;
+        color: var(--color-text-primary);
+        letter-spacing: -0.01em;
+      }
+      .section-subtitle {
+        font-family: var(--font-body);
+        font-weight: 400;
+        font-size: 0.8125rem;
+        color: var(--color-text-tertiary);
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased" style="background: #F0EBE5;">
+    <!-- Film Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <div class="mobile-shell">
+      <main class="pb-20">
+
+        <!-- ════════════════════════════════════════════
+             1. TOP BAR
+             ════════════════════════════════════════════ -->
+        <div class="flex items-center justify-between px-5 pt-4 pb-3" style="background: var(--color-bg);">
+          <!-- User Avatar + Greeting -->
+          <div class="flex items-center gap-3">
+            <div class="avatar-glow rounded-full overflow-hidden" style="width: 42px; height: 42px;">
+              <div class="w-full h-full flex items-center justify-center text-white font-semibold text-sm" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);">
+                明
+              </div>
+            </div>
+            <div>
+              <p class="text-xs" style="color: var(--color-text-tertiary); font-family: var(--font-body);">下午好</p>
+              <p class="text-base font-semibold" style="color: var(--color-text-primary); font-family: var(--font-body);">小明</p>
+            </div>
+          </div>
+          <!-- Notification Bell -->
+          <button data-dom-id="home-notification" class="relative p-2 rounded-full transition-colors" style="color: var(--color-text-secondary);" aria-label="通知">
+            <i data-lucide="bell" style="width: 22px; height: 22px;"></i>
+            <span class="notification-dot"></span>
+          </button>
+        </div>
+
+        <!-- ════════════════════════════════════════════
+             2. HERO BANNER
+             ════════════════════════════════════════════ -->
+        <div class="px-5 pt-2 pb-4">
+          <div class="hero-gradient film-strip-top rounded-2xl p-5 relative overflow-hidden" style="box-shadow: 0 8px 32px rgba(212, 132, 90, 0.25);">
+            <!-- Decorative film sprocket holes on left -->
+            <div class="absolute left-0 top-0 bottom-0 w-3 opacity-20">
+              <div class="w-full h-full" style="background: repeating-linear-gradient(180deg, rgba(255,255,255,0.6) 0px, rgba(255,255,255,0.6) 8px, transparent 8px, transparent 16px);"></div>
+            </div>
+            <!-- Decorative film sprocket holes on right -->
+            <div class="absolute right-0 top-0 bottom-0 w-3 opacity-20">
+              <div class="w-full h-full" style="background: repeating-linear-gradient(180deg, rgba(255,255,255,0.6) 0px, rgba(255,255,255,0.6) 8px, transparent 8px, transparent 16px);"></div>
+            </div>
+            <!-- Content -->
+            <div class="relative z-10 pl-2">
+              <p class="text-xs font-medium tracking-wider uppercase mb-2" style="color: rgba(255,255,255,0.75); font-family: var(--font-body);">
+                AI 发现
+              </p>
+              <h2 class="text-xl font-bold leading-snug mb-1" style="font-family: var(--font-body); color: #FFFFFF;">
+                AI 为你发现了一段美好回忆
+              </h2>
+              <p class="text-sm mb-4" style="color: rgba(255,255,255,0.8); font-family: var(--font-body);">
+                基于你的照片和视频，自动生成专属电影
+              </p>
+              <button class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all" style="background: rgba(255,255,255,0.95); color: var(--color-primary-dark); font-family: var(--font-body); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                查看
+                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+              </button>
+            </div>
+            <!-- Decorative film reel icon -->
+            <div class="absolute right-4 top-3 opacity-10">
+              <i data-lucide="film" style="width: 64px; height: 64px; color: white;"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════
+             3. RECENT WORKS — "最近作品"
+             ════════════════════════════════════════════ -->
+        <div class="mb-5">
+          <!-- Section Header -->
+          <div class="flex items-center justify-between px-5 mb-3">
+            <h3 class="section-title">最近作品</h3>
+            <button data-dom-id="home-recent-more" class="flex items-center gap-0.5 text-xs font-medium" style="color: var(--color-primary); font-family: var(--font-body);">
+              查看全部
+              <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
+            </button>
+          </div>
+          <!-- Horizontal Scrollable Cards -->
+          <div class="relative">
+            <div class="flex gap-3 px-5 overflow-x-auto no-scrollbar" style="scroll-snap-type: x mandatory;">
+              <!-- Card 1: 三亚之旅 -->
+              <div class="video-card flex-shrink-0 rounded-2xl overflow-hidden" style="width: 200px; scroll-snap-align: start; box-shadow: var(--shadow-md); background: var(--color-surface);">
+                <div class="film-strip-top relative" style="height: 140px;">
+                  <img src="../assets/home-recent-1.jpg" alt="三亚之旅" class="w-full h-full object-cover" loading="lazy">
+                  <!-- Play Overlay -->
+                  <div class="play-overlay absolute inset-0 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.9);">
+                      <i data-lucide="play" style="width: 18px; height: 18px; color: var(--color-primary); margin-left: 2px;"></i>
+                    </div>
+                  </div>
+                  <!-- Duration Badge -->
+                  <div class="duration-badge absolute bottom-2 right-2 px-2 py-0.5 rounded-md text-xs font-medium text-white" style="font-family: var(--font-body);">
+                    2:34
+                  </div>
+                </div>
+                <div class="p-3">
+                  <p class="text-sm font-semibold truncate" style="color: var(--color-text-primary); font-family: var(--font-body);">三亚之旅</p>
+                  <p class="text-xs mt-0.5" style="color: var(--color-text-tertiary); font-family: var(--font-body);">3天前</p>
+                </div>
+              </div>
+
+              <!-- Card 2: 小宝的第一个夏天 -->
+              <div class="video-card flex-shrink-0 rounded-2xl overflow-hidden" style="width: 200px; scroll-snap-align: start; box-shadow: var(--shadow-md); background: var(--color-surface);">
+                <div class="film-strip-top relative" style="height: 140px;">
+                  <img src="../assets/home-recent-2.jpg" alt="小宝的第一个夏天" class="w-full h-full object-cover" loading="lazy">
+                  <!-- Play Overlay -->
+                  <div class="play-overlay absolute inset-0 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.9);">
+                      <i data-lucide="play" style="width: 18px; height: 18px; color: var(--color-primary); margin-left: 2px;"></i>
+                    </div>
+                  </div>
+                  <!-- Duration Badge -->
+                  <div class="duration-badge absolute bottom-2 right-2 px-2 py-0.5 rounded-md text-xs font-medium text-white" style="font-family: var(--font-body);">
+                    1:48
+                  </div>
+                </div>
+                <div class="p-3">
+                  <p class="text-sm font-semibold truncate" style="color: var(--color-text-primary); font-family: var(--font-body);">小宝的第一个夏天</p>
+                  <p class="text-xs mt-0.5" style="color: var(--color-text-tertiary); font-family: var(--font-body);">1周前</p>
+                </div>
+              </div>
+
+              <!-- Card 3: 毕业快乐 -->
+              <div class="video-card flex-shrink-0 rounded-2xl overflow-hidden" style="width: 200px; scroll-snap-align: start; box-shadow: var(--shadow-md); background: var(--color-surface);">
+                <div class="film-strip-top relative" style="height: 140px;">
+                  <img src="../assets/home-recent-3.jpg" alt="毕业快乐" class="w-full h-full object-cover" loading="lazy">
+                  <!-- Play Overlay -->
+                  <div class="play-overlay absolute inset-0 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.9);">
+                      <i data-lucide="play" style="width: 18px; height: 18px; color: var(--color-primary); margin-left: 2px;"></i>
+                    </div>
+                  </div>
+                  <!-- Duration Badge -->
+                  <div class="duration-badge absolute bottom-2 right-2 px-2 py-0.5 rounded-md text-xs font-medium text-white" style="font-family: var(--font-body);">
+                    3:12
+                  </div>
+                </div>
+                <div class="p-3">
+                  <p class="text-sm font-semibold truncate" style="color: var(--color-text-primary); font-family: var(--font-body);">毕业快乐</p>
+                  <p class="text-xs mt-0.5" style="color: var(--color-text-tertiary); font-family: var(--font-body);">2周前</p>
+                </div>
+              </div>
+
+              <!-- Extra spacer card for scroll hint -->
+              <div class="flex-shrink-0" style="width: 20px;"></div>
+            </div>
+            <!-- Scroll fade hint on right -->
+            <div class="scroll-hint absolute top-0 right-0 bottom-0" style="width: 40px;"></div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════
+             4. RECOMMENDED TEMPLATES — "推荐模板"
+             ════════════════════════════════════════════ -->
+        <div class="px-5 mb-6">
+          <!-- Section Header -->
+          <div class="flex items-end justify-between mb-3">
+            <div>
+              <h3 class="section-title">推荐模板</h3>
+              <p class="section-subtitle mt-0.5">看看这些</p>
+            </div>
+          </div>
+          <!-- 2-Column Grid -->
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Template 1: 旅行回忆 -->
+            <button data-dom-id="home-template-travel" class="template-card rounded-xl overflow-hidden text-left" style="box-shadow: var(--shadow-sm); background: var(--color-surface);">
+              <div class="relative" style="height: 100px;">
+                <img src="../assets/template-travel.jpg" alt="旅行回忆" class="w-full h-full object-cover" loading="lazy">
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 40%, rgba(45,31,20,0.5) 100%);"></div>
+                <div class="absolute bottom-2 left-2.5 right-2.5">
+                  <p class="text-xs font-semibold text-white" style="font-family: var(--font-body); text-shadow: 0 1px 3px rgba(0,0,0,0.3);">旅行回忆</p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Template 2: 宝宝成长 -->
+            <button class="template-card rounded-xl overflow-hidden text-left" style="box-shadow: var(--shadow-sm); background: var(--color-surface);">
+              <div class="relative" style="height: 100px;">
+                <img src="../assets/template-baby.jpg" alt="宝宝成长" class="w-full h-full object-cover" loading="lazy">
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 40%, rgba(45,31,20,0.5) 100%);"></div>
+                <div class="absolute bottom-2 left-2.5 right-2.5">
+                  <p class="text-xs font-semibold text-white" style="font-family: var(--font-body); text-shadow: 0 1px 3px rgba(0,0,0,0.3);">宝宝成长</p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Template 3: 纪念日 -->
+            <button class="template-card rounded-xl overflow-hidden text-left" style="box-shadow: var(--shadow-sm); background: var(--color-surface);">
+              <div class="relative" style="height: 100px;">
+                <img src="../assets/template-anniversary.jpg" alt="纪念日" class="w-full h-full object-cover" loading="lazy">
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 40%, rgba(45,31,20,0.5) 100%);"></div>
+                <div class="absolute bottom-2 left-2.5 right-2.5">
+                  <p class="text-xs font-semibold text-white" style="font-family: var(--font-body); text-shadow: 0 1px 3px rgba(0,0,0,0.3);">纪念日</p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Template 4: 毕业季 -->
+            <button class="template-card rounded-xl overflow-hidden text-left" style="box-shadow: var(--shadow-sm); background: var(--color-surface);">
+              <div class="relative" style="height: 100px;">
+                <img src="../assets/template-graduation.jpg" alt="毕业季" class="w-full h-full object-cover" loading="lazy">
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 40%, rgba(45,31,20,0.5) 100%);"></div>
+                <div class="absolute bottom-2 left-2.5 right-2.5">
+                  <p class="text-xs font-semibold text-white" style="font-family: var(--font-body); text-shadow: 0 1px 3px rgba(0,0,0,0.3);">毕业季</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- ════════════════════════════════════════════
+           5. BOTTOM TAB BAR
+           ════════════════════════════════════════════ -->
+      <nav class="tab-bar fixed bottom-0 left-1/2 -translate-x-1/2 w-full" style="max-width: 375px;">
+        <div class="flex items-center justify-around py-2 pb-5">
+          <!-- Tab: 首页 (Active) -->
+          <button class="tab-item active flex flex-col items-center gap-0.5 py-1 px-3" aria-label="首页" aria-current="page">
+            <i data-lucide="home" style="width: 22px; height: 22px;"></i>
+            <span class="text-xs font-medium" style="font-family: var(--font-body);">首页</span>
+          </button>
+          <!-- Tab: 模板 -->
+          <button data-dom-id="home-tab-templates" class="tab-item flex flex-col items-center gap-0.5 py-1 px-3" aria-label="模板">
+            <i data-lucide="layout-grid" style="width: 22px; height: 22px;"></i>
+            <span class="text-xs font-medium" style="font-family: var(--font-body);">模板</span>
+          </button>
+          <!-- Tab: 创作 (+) -->
+          <button data-dom-id="home-tab-create" class="flex flex-col items-center gap-0.5 py-1 px-3 -mt-4" aria-label="创作">
+            <div class="create-btn w-12 h-12 rounded-full flex items-center justify-center">
+              <i data-lucide="plus" style="width: 24px; height: 24px; color: white;"></i>
+            </div>
+            <span class="text-xs font-medium mt-0.5" style="color: var(--color-text-tertiary); font-family: var(--font-body);">创作</span>
+          </button>
+          <!-- Tab: 我的 -->
+          <button class="tab-item flex flex-col items-center gap-0.5 py-1 px-3" aria-label="我的">
+            <i data-lucide="user" style="width: 22px; height: 22px;"></i>
+            <span class="text-xs font-medium" style="font-family: var(--font-body);">我的</span>
+          </button>
+        </div>
+      </nav>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

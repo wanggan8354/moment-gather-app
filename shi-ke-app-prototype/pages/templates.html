@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾刻 - 模板选择</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Noto+Sans+SC:wght@300..800&display=swap" rel="stylesheet">
+    <style id="theme-vars">
+/* ========================================
+   拾刻 App Prototype — Brand Design Tokens
+   Warm Film / Nostalgic Tone
+   ======================================== */
+
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #D4845A;
+  --color-primary-light: #E8A87C;
+  --color-primary-dark: #B86A42;
+  --color-primary-bg: #FDF6F0;
+
+  /* ── Warm Neutrals ── */
+  --color-bg: #FFFAF5;
+  --color-bg-secondary: #FFF5EC;
+  --color-bg-tertiary: #F5EDE4;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+
+  /* ── Text ── */
+  --color-text-primary: #2D1F14;
+  --color-text-secondary: #6B5344;
+  --color-text-tertiary: #9C8577;
+  --color-text-inverse: #FFFFFF;
+
+  /* ── Borders & Dividers ── */
+  --color-border: #E8DDD2;
+  --color-border-light: #F0E8DF;
+
+  /* ── Accent / Film Tones ── */
+  --color-film-gold: #C9A96E;
+  --color-film-rose: #D4847A;
+  --color-film-sage: #8BA888;
+  --color-film-sky: #7BA7BC;
+
+  /* ── State Colors ── */
+  --state-success: #6BAF7B;
+  --state-warning: #D4A04A;
+  --state-error: #C96B5A;
+  --state-info: #6B8FC9;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows (static alpha ≤ 0.05) ── */
+  --shadow-sm: 0 1px 3px rgba(45, 31, 20, 0.04);
+  --shadow-md: 0 2px 8px rgba(45, 31, 20, 0.05);
+  --shadow-lg: 0 8px 24px rgba(45, 31, 20, 0.05);
+  --shadow-float: 0 12px 40px rgba(45, 31, 20, 0.08);
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ── Film Grain Overlay ── */
+  --grain-opacity: 0.03;
+}
+
+/* ── Typography Classes ── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-md {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.heading-sm {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-surface); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main class="max-w-[375px] mx-auto min-h-screen flex flex-col" style="background: var(--color-bg); font-family: var(--font-body);">
+
+      <!-- ═══ Header ═══ -->
+      <header class="flex items-center justify-between px-4 py-3" style="background: var(--color-surface); border-bottom: 1px solid var(--color-border-light);">
+        <button data-dom-id="template-back" class="flex items-center justify-center w-9 h-9 rounded-full" style="background: var(--color-bg-secondary);">
+          <i data-lucide="arrow-left" class="w-5 h-5" style="color: var(--color-text-primary);"></i>
+        </button>
+        <h1 class="heading-lg" style="color: var(--color-text-primary);">选择模板</h1>
+        <button class="flex items-center justify-center w-9 h-9 rounded-full" style="background: var(--color-bg-secondary);">
+          <i data-lucide="search" class="w-5 h-5" style="color: var(--color-text-primary);"></i>
+        </button>
+      </header>
+
+      <!-- ═══ Category Tabs ═══ -->
+      <nav class="px-4 py-3 flex gap-2 overflow-x-auto no-scrollbar" style="background: var(--color-surface);">
+        <button class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all" style="background: var(--color-primary); color: var(--color-text-inverse); box-shadow: var(--shadow-sm);">全部</button>
+        <button class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all" style="background: var(--color-bg-secondary); color: var(--color-text-secondary);">旅行</button>
+        <button class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all" style="background: var(--color-bg-secondary); color: var(--color-text-secondary);">成长</button>
+        <button class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all" style="background: var(--color-bg-secondary); color: var(--color-text-secondary);">纪念</button>
+        <button class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all" style="background: var(--color-bg-secondary); color: var(--color-text-secondary);">毕业</button>
+        <button class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all" style="background: var(--color-bg-secondary); color: var(--color-text-secondary);">年度</button>
+        <button class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all" style="background: var(--color-bg-secondary); color: var(--color-text-secondary);">聚会</button>
+      </nav>
+
+      <!-- ═══ Template Grid ═══ -->
+      <section class="flex-1 px-4 pt-4 pb-6">
+        <div class="grid grid-cols-2 gap-3">
+
+          <!-- Card 1: 旅行回忆 -->
+          <div class="rounded-2xl overflow-hidden" style="background: var(--color-surface); box-shadow: var(--shadow-md);">
+            <div class="relative aspect-[3/4] overflow-hidden">
+              <img src="../assets/template-travel.jpg" alt="旅行回忆" class="w-full h-full object-cover" loading="lazy">
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(45,31,20,0.5) 0%, transparent 50%);"></div>
+              <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium" style="background: rgba(255,255,255,0.9); color: var(--color-primary-dark);">
+                <span style="color: var(--color-film-gold);">&#9733;</span> 4.9
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold mb-0.5" style="color: var(--color-text-primary); font-family: var(--font-body);">旅行回忆</h3>
+              <p class="text-xs mb-2 leading-relaxed" style="color: var(--color-text-tertiary); font-style: italic;">山川湖海，皆是故事</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs" style="color: var(--color-text-tertiary);">2.3万次使用</span>
+                <button data-dom-id="template-use-travel" class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--color-primary-bg); color: var(--color-primary-dark);">使用</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: 宝宝成长 -->
+          <div class="rounded-2xl overflow-hidden" style="background: var(--color-surface); box-shadow: var(--shadow-md);">
+            <div class="relative aspect-[3/4] overflow-hidden">
+              <img src="../assets/template-baby.jpg" alt="宝宝成长" class="w-full h-full object-cover" loading="lazy">
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(45,31,20,0.5) 0%, transparent 50%);"></div>
+              <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium" style="background: rgba(255,255,255,0.9); color: var(--color-primary-dark);">
+                <span style="color: var(--color-film-gold);">&#9733;</span> 4.8
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold mb-0.5" style="color: var(--color-text-primary); font-family: var(--font-body);">宝宝成长</h3>
+              <p class="text-xs mb-2 leading-relaxed" style="color: var(--color-text-tertiary); font-style: italic;">记录每一个第一次</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs" style="color: var(--color-text-tertiary);">1.8万次使用</span>
+                <button data-dom-id="template-use-baby" class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--color-primary-bg); color: var(--color-primary-dark);">使用</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: 纪念日 -->
+          <div class="rounded-2xl overflow-hidden" style="background: var(--color-surface); box-shadow: var(--shadow-md);">
+            <div class="relative aspect-[3/4] overflow-hidden">
+              <img src="../assets/template-anniversary.jpg" alt="纪念日" class="w-full h-full object-cover" loading="lazy">
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(45,31,20,0.5) 0%, transparent 50%);"></div>
+              <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium" style="background: rgba(255,255,255,0.9); color: var(--color-primary-dark);">
+                <span style="color: var(--color-film-gold);">&#9733;</span> 4.7
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold mb-0.5" style="color: var(--color-text-primary); font-family: var(--font-body);">纪念日</h3>
+              <p class="text-xs mb-2 leading-relaxed" style="color: var(--color-text-tertiary); font-style: italic;">爱在日常，才不寻常</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs" style="color: var(--color-text-tertiary);">1.2万次使用</span>
+                <button data-dom-id="template-use-anniversary" class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--color-primary-bg); color: var(--color-primary-dark);">使用</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: 毕业季 -->
+          <div class="rounded-2xl overflow-hidden" style="background: var(--color-surface); box-shadow: var(--shadow-md);">
+            <div class="relative aspect-[3/4] overflow-hidden">
+              <img src="../assets/template-graduation.jpg" alt="毕业季" class="w-full h-full object-cover" loading="lazy">
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(45,31,20,0.5) 0%, transparent 50%);"></div>
+              <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium" style="background: rgba(255,255,255,0.9); color: var(--color-primary-dark);">
+                <span style="color: var(--color-film-gold);">&#9733;</span> 4.9
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold mb-0.5" style="color: var(--color-text-primary); font-family: var(--font-body);">毕业季</h3>
+              <p class="text-xs mb-2 leading-relaxed" style="color: var(--color-text-tertiary); font-style: italic;">青春不散场</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs" style="color: var(--color-text-tertiary);">1.5万次使用</span>
+                <button data-dom-id="template-use-graduation" class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--color-primary-bg); color: var(--color-primary-dark);">使用</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: 年度回忆 -->
+          <div class="rounded-2xl overflow-hidden" style="background: var(--color-surface); box-shadow: var(--shadow-md);">
+            <div class="relative aspect-[3/4] overflow-hidden">
+              <img src="../assets/template-annual.jpg" alt="年度回忆" class="w-full h-full object-cover" loading="lazy">
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(45,31,20,0.5) 0%, transparent 50%);"></div>
+              <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium" style="background: rgba(255,255,255,0.9); color: var(--color-primary-dark);">
+                <span style="color: var(--color-film-gold);">&#9733;</span> 4.8
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold mb-0.5" style="color: var(--color-text-primary); font-family: var(--font-body);">年度回忆</h3>
+              <p class="text-xs mb-2 leading-relaxed" style="color: var(--color-text-tertiary); font-style: italic;">这一年，你很棒</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs" style="color: var(--color-text-tertiary);">3.1万次使用</span>
+                <button data-dom-id="template-use-annual" class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--color-primary-bg); color: var(--color-primary-dark);">使用</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: 朋友聚会 -->
+          <div class="rounded-2xl overflow-hidden" style="background: var(--color-surface); box-shadow: var(--shadow-md);">
+            <div class="relative aspect-[3/4] overflow-hidden">
+              <img src="../assets/template-party.jpg" alt="朋友聚会" class="w-full h-full object-cover" loading="lazy">
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(45,31,20,0.5) 0%, transparent 50%);"></div>
+              <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium" style="background: rgba(255,255,255,0.9); color: var(--color-primary-dark);">
+                <span style="color: var(--color-film-gold);">&#9733;</span> 4.6
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold mb-0.5" style="color: var(--color-text-primary); font-family: var(--font-body);">朋友聚会</h3>
+              <p class="text-xs mb-2 leading-relaxed" style="color: var(--color-text-tertiary); font-style: italic;">有你们真好</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs" style="color: var(--color-text-tertiary);">0.8万次使用</span>
+                <button data-dom-id="template-use-party" class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--color-primary-bg); color: var(--color-primary-dark);">使用</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ═══ Bottom CTA ═══ -->
+      <footer class="px-4 pb-6 pt-2" style="background: var(--color-surface); border-top: 1px solid var(--color-border-light);">
+        <button data-dom-id="template-select-album" class="w-full py-3.5 rounded-2xl text-base font-semibold flex items-center justify-center gap-2 transition-all" style="background: var(--color-primary); color: var(--color-text-inverse); box-shadow: 0 4px 16px rgba(212, 132, 90, 0.3);">
+          <i data-lucide="image-plus" class="w-5 h-5"></i>
+          选择相册照片
+        </button>
+      </footer>
+
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
