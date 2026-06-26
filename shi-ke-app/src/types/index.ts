@@ -27,6 +27,11 @@ export interface User {
   totalMinutes: number;
 }
 
-export type GeneratingStatus = 'idle' | 'analyzing' | 'matching' | 'generating' | 'done';
+export type GeneratingStatus =
+  | "idle"
+  | "analyzing"
+  | "matching"
+  | "generating"
+  | "done";
 
-export type TabType = 'home' | 'templates' | 'create' | 'profile';
+export type TabType = "home" | "templates" | "create" | "profile";

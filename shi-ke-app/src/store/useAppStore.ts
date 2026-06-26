@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import type { Work, Template, GeneratingStatus, TabType } from '@/types';
-import { mockWorks, mockTemplates, mockUser } from '@/utils/mockData';
+import { create } from "zustand";
+import type { Work, Template, GeneratingStatus, TabType } from "@/types";
+import { mockWorks, mockTemplates, mockUser } from "@/utils/mockData";
 
 interface AppState {
   user: typeof mockUser;
@@ -27,16 +27,18 @@ export const useAppStore = create<AppState>((set, get) => ({
   works: mockWorks,
   templates: mockTemplates,
   selectedTemplate: null,
-  generatingStatus: 'idle',
+  generatingStatus: "idle",
   generatingProgress: 0,
   currentWork: null,
-  activeTab: 'home',
+  activeTab: "home",
 
   selectTemplate: (template) => set({ selectedTemplate: template }),
 
-  startGenerating: () => set({ generatingStatus: 'analyzing', generatingProgress: 0 }),
+  startGenerating: () =>
+    set({ generatingStatus: "analyzing", generatingProgress: 0 }),
 
-  cancelGenerating: () => set({ generatingStatus: 'idle', generatingProgress: 0 }),
+  cancelGenerating: () =>
+    set({ generatingStatus: "idle", generatingProgress: 0 }),
 
   setGeneratingStatus: (status) => set({ generatingStatus: status }),
 
@@ -46,15 +48,15 @@ export const useAppStore = create<AppState>((set, get) => ({
     const { selectedTemplate, works } = get();
     const newWork: Work = {
       id: Date.now().toString(),
-      title: selectedTemplate?.name || '新作品',
-      coverImage: selectedTemplate?.coverImage || '/assets/home-recent-1.jpg',
-      duration: `${Math.floor(Math.random() * 2) + 1}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
-      createdAt: '刚刚',
+      title: selectedTemplate?.name || "新作品",
+      coverImage: selectedTemplate?.coverImage || "/assets/home-recent-1.jpg",
+      duration: `${Math.floor(Math.random() * 2) + 1}:${String(Math.floor(Math.random() * 60)).padStart(2, "0")}`,
+      createdAt: "刚刚",
       photoCount: Math.floor(Math.random() * 1000) + 200,
       selectedMoments: Math.floor(Math.random() * 30) + 20,
     };
     set({
-      generatingStatus: 'done',
+      generatingStatus: "done",
       generatingProgress: 100,
       currentWork: newWork,
       works: [newWork, ...works],

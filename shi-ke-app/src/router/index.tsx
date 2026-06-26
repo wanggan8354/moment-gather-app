@@ -1,38 +1,38 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import Welcome from '@/pages/Welcome';
-import Home from '@/pages/Home';
-import Templates from '@/pages/Templates';
-import Generating from '@/pages/Generating';
-import Preview from '@/pages/Preview';
-import Profile from '@/pages/Profile';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import Welcome from "@/pages/Welcome";
+import Home from "@/pages/Home";
+import Templates from "@/pages/Templates";
+import Generating from "@/pages/Generating";
+import Preview from "@/pages/Preview";
+import Profile from "@/pages/Profile";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Navigate to="/welcome" replace />,
   },
   {
-    path: '/welcome',
+    path: "/welcome",
     element: <Welcome />,
   },
   {
-    path: '/home',
+    path: "/home",
     element: <Home />,
   },
   {
-    path: '/templates',
+    path: "/templates",
     element: <Templates />,
   },
   {
-    path: '/generating',
+    path: "/generating",
     element: <Generating />,
   },
   {
-    path: '/preview/:id',
+    path: "/preview/:id",
     element: <Preview />,
   },
   {
-    path: '/profile',
+    path: "/profile",
     element: <Profile />,
   },
 ]);

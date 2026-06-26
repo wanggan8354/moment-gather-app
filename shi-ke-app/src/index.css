@@ -1,33 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #D4845A;
-  --color-primary-light: #E8A87C;
-  --color-primary-dark: #B86A42;
-  --color-primary-bg: #FDF6F0;
+  --color-primary: #d4845a;
+  --color-primary-light: #e8a87c;
+  --color-primary-dark: #b86a42;
+  --color-primary-bg: #fdf6f0;
 
-  --color-bg: #FFFAF5;
-  --color-bg-secondary: #FFF5EC;
-  --color-bg-tertiary: #F5EDE4;
-  --color-surface: #FFFFFF;
+  --color-bg: #fffaf5;
+  --color-bg-secondary: #fff5ec;
+  --color-bg-tertiary: #f5ede4;
+  --color-surface: #ffffff;
 
-  --color-text-primary: #2D1F14;
-  --color-text-secondary: #6B5344;
-  --color-text-tertiary: #9C8577;
-  --color-text-inverse: #FFFFFF;
+  --color-text-primary: #2d1f14;
+  --color-text-secondary: #6b5344;
+  --color-text-tertiary: #9c8577;
+  --color-text-inverse: #ffffff;
 
-  --color-border: #E8DDD2;
-  --color-border-light: #F0E8DF;
+  --color-border: #e8ddd2;
+  --color-border-light: #f0e8df;
 
-  --color-film-gold: #C9A96E;
-  --color-film-rose: #D4847A;
-  --color-film-sage: #8BA888;
-  --color-film-sky: #7BA7BC;
+  --color-film-gold: #c9a96e;
+  --color-film-rose: #d4847a;
+  --color-film-sage: #8ba888;
+  --color-film-sky: #7ba7bc;
 
-  --color-state-success: #6BAF7B;
-  --color-state-warning: #D4A04A;
-  --color-state-error: #C96B5A;
-  --color-state-info: #6B8FC9;
+  --color-state-success: #6baf7b;
+  --color-state-warning: #d4a04a;
+  --color-state-error: #c96b5a;
+  --color-state-info: #6b8fc9;
 
   --radius-sm: 4px;
   --radius-md: 10px;
@@ -36,8 +36,9 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
-  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Playfair Display", "Noto Serif SC", Georgia, serif;
+  --font-body:
+    "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
 
   --shadow-sm: 0 1px 3px rgba(45, 31, 20, 0.04);
   --shadow-md: 0 2px 8px rgba(45, 31, 20, 0.05);
@@ -50,7 +51,9 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -74,7 +77,7 @@ html, body, #root {
   position: relative;
 }
 .film-grain::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -97,14 +100,30 @@ html, body, #root {
 }
 
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
